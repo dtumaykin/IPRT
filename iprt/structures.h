@@ -1,20 +1,20 @@
 #ifndef _STRUCTURES_
 #define _STRUCTURES_
 
-//Цвет
+//Р¦РІРµС‚
 struct Color
 {
 	unsigned short r, g, b;
 };
 
-//Позиция в трёхмерном пространстве
+//РџРѕР·РёС†РёСЏ РІ С‚СЂС‘С…РјРµСЂРЅРѕРј РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРµ
 struct XYZ
 {
 	double x, y, z;
 };
 
 
-//Источник света
+//РСЃС‚РѕС‡РЅРёРє СЃРІРµС‚Р°
 struct Light
 {
 	XYZ pos;

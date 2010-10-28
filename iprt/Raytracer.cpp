@@ -14,7 +14,7 @@ Raytracer::Raytracer(XYZ eyePos, XYZ planePos, XYZ planeOX, XYZ planeOY,
 	m_resolutionX = resolutionX;
 	m_resolutionY = resolutionY;
 	
-	//Вычисление необходимых велечин (см. презентацию интела)
+	//Р’С‹С‡РёСЃР»РµРЅРёРµ РЅРµРѕР±С…РѕРґРёРјС‹С… РІРµР»РµС‡РёРЅ (СЃРј. РїСЂРµР·РµРЅС‚Р°С†РёСЋ РёРЅС‚РµР»Р°)
 	m_pixelSizeX = planeSizeX/resolutionX;
 	m_pixelSizeY = planeSizeY/resolutionY;
 	m_planeCenter.x = m_eyePos.x + planePos.x;
@@ -50,7 +50,7 @@ bool Raytracer::calculateCross(XYZ ray, XYZ source, Primitive ** p, double * len
 	Primitive * primMin;
 	double lenMin = -1;
 
-	//Проходим в цикле по всем сферам, чтобы найти ближайшее пересечение
+	//РџСЂРѕС…РѕРґРёРј РІ С†РёРєР»Рµ РїРѕ РІСЃРµРј СЃС„РµСЂР°Рј, С‡С‚РѕР±С‹ РЅР°Р№С‚Рё Р±Р»РёР¶Р°Р№С€РµРµ РїРµСЂРµСЃРµС‡РµРЅРёРµ
 	for(unsigned int i = 0; i<m_primitives.size(); i++){
 		double crossLen;
 		if (refractive)
@@ -63,16 +63,16 @@ bool Raytracer::calculateCross(XYZ ray, XYZ source, Primitive ** p, double * len
 				primMin = m_primitives[i];
 			}
 	}
-	//Если в минимальное расстояние ничего не занесено - значит пересечений не было - возвращаем false
+	//Р•СЃР»Рё РІ РјРёРЅРёРјР°Р»СЊРЅРѕРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ РЅРёС‡РµРіРѕ РЅРµ Р·Р°РЅРµСЃРµРЅРѕ - Р·РЅР°С‡РёС‚ РїРµСЂРµСЃРµС‡РµРЅРёР№ РЅРµ Р±С‹Р»Рѕ - РІРѕР·РІСЂР°С‰Р°РµРј false
 	if(lenMin == -1) return false;
-	//Если всё хорошо, то заносим значения по указателям и возвращаем true
+	//Р•СЃР»Рё РІСЃС‘ С…РѕСЂРѕС€Рѕ, С‚Рѕ Р·Р°РЅРѕСЃРёРј Р·РЅР°С‡РµРЅРёСЏ РїРѕ СѓРєР°Р·Р°С‚РµР»СЏРј Рё РІРѕР·РІСЂР°С‰Р°РµРј true
 	*len = lenMin;
 	*p = primMin;
 	return true;
 }
 
 Color Raytracer::calcCrossColor(XYZ ray, XYZ source, int iterNum, double currRefraction, bool refractive){
-	//Изначально результат равен цвету фона
+	//РР·РЅР°С‡Р°Р»СЊРЅРѕ СЂРµР·СѓР»СЊС‚Р°С‚ СЂР°РІРµРЅ С†РІРµС‚Сѓ С„РѕРЅР°
 	Color result;
 	result = m_background;
 
@@ -82,21 +82,21 @@ Color Raytracer::calcCrossColor(XYZ ray, XYZ source, int iterNum, double currRef
 	double len;
 	Primitive * p;
 
-	//Если пересечения нет - возвращаем цвет фона
+	//Р•СЃР»Рё РїРµСЂРµСЃРµС‡РµРЅРёСЏ РЅРµС‚ - РІРѕР·РІСЂР°С‰Р°РµРј С†РІРµС‚ С„РѕРЅР°
 	if(!calculateCross(ray, source, &p, &len, refractive))
 		return result;
 	else{
                 result.r = static_cast<unsigned short>(p->getColor().r*double(m_globalLight.r)/255.0f);
                 result.g = static_cast<unsigned short>(p->getColor().g*double(m_globalLight.g)/255.0f);
                 result.b = static_cast<unsigned short>(p->getColor().b*double(m_globalLight.b)/255.0f);
-		//Иначе начинаем считать тени
-		//Находим координаты точки пересечения
+		//РРЅР°С‡Рµ РЅР°С‡РёРЅР°РµРј СЃС‡РёС‚Р°С‚СЊ С‚РµРЅРё
+		//РќР°С…РѕРґРёРј РєРѕРѕСЂРґРёРЅР°С‚С‹ С‚РѕС‡РєРё РїРµСЂРµСЃРµС‡РµРЅРёСЏ
 		XYZ crossPos; 
 		crossPos.x = ray.x*len + source.x;
 		crossPos.y = ray.y*len + source.y;
 		crossPos.z = ray.z*len + source.z;
 		
-		//Находим нормаль в точке пересечения
+		//РќР°С…РѕРґРёРј РЅРѕСЂРјР°Р»СЊ РІ С‚РѕС‡РєРµ РїРµСЂРµСЃРµС‡РµРЅРёСЏ
 		XYZ norm = p->getNormal(crossPos);
 		if (scalarMultiplication(norm,ray) > 0)
 		{
@@ -107,7 +107,7 @@ Color Raytracer::calcCrossColor(XYZ ray, XYZ source, int iterNum, double currRef
 		norm = normalizeVector(norm);
 
 
-		// считаем отражение
+		// СЃС‡РёС‚Р°РµРј РѕС‚СЂР°Р¶РµРЅРёРµ
 		XYZ temp, reflectRay;
 		Color reflectColor = m_background;
 //		if (currRefraction == 1)
@@ -125,7 +125,7 @@ Color Raytracer::calcCrossColor(XYZ ray, XYZ source, int iterNum, double currRef
 			if (reflectColor.b>p->getColor().b) reflectColor.b=p->getColor().b;
 //		}
 
-		// считаем преломление
+		// СЃС‡РёС‚Р°РµРј РїСЂРµР»РѕРјР»РµРЅРёРµ
 		XYZ temp2, refractRay, temp3;
 		double refractionScaler;
 		Color refractColor = m_background;
@@ -233,23 +233,23 @@ Color Raytracer::calcCrossColor(XYZ ray, XYZ source, int iterNum, double currRef
                         result.b +=static_cast<unsigned short>(p->getTransparency()*refractColor.b*(1.0-(1.0-p->getTransparency()*(double(m_globalLight.b)/255.0f))));
 		}
 
-		//Входим в цикл по лампочкам, чтобы узнать в тени ли лампочка
+		//Р’С…РѕРґРёРј РІ С†РёРєР» РїРѕ Р»Р°РјРїРѕС‡РєР°Рј, С‡С‚РѕР±С‹ СѓР·РЅР°С‚СЊ РІ С‚РµРЅРё Р»Рё Р»Р°РјРїРѕС‡РєР°
 		bool isShadow = true;
 		for(unsigned int i = 0; i < m_lights.size(); i++){
 			XYZ lightRay;
 			Primitive * tempP;
 			double tempT;
-			//Находим направление вектора от точки пересечения до лампочки
+			//РќР°С…РѕРґРёРј РЅР°РїСЂР°РІР»РµРЅРёРµ РІРµРєС‚РѕСЂР° РѕС‚ С‚РѕС‡РєРё РїРµСЂРµСЃРµС‡РµРЅРёСЏ РґРѕ Р»Р°РјРїРѕС‡РєРё
 			lightRay.x = m_lights[i].pos.x - crossPos.x;
 			lightRay.y = m_lights[i].pos.y - crossPos.y;
 			lightRay.z = m_lights[i].pos.z - crossPos.z;
 			double lightLen = calcVectorLen(lightRay);
 
-			//Если ничто наш вектор не загораживает - объект не в тени
+			//Р•СЃР»Рё РЅРёС‡С‚Рѕ РЅР°С€ РІРµРєС‚РѕСЂ РЅРµ Р·Р°РіРѕСЂР°Р¶РёРІР°РµС‚ - РѕР±СЉРµРєС‚ РЅРµ РІ С‚РµРЅРё
 			if((!calculateCross(lightRay, crossPos, &tempP, &tempT, refractive)) || (tempP->getTransparency()))
 				isShadow = false;
 
-			//Если пересечение находится за источником света - то обьект всё равно не в тени
+			//Р•СЃР»Рё РїРµСЂРµСЃРµС‡РµРЅРёРµ РЅР°С…РѕРґРёС‚СЃСЏ Р·Р° РёСЃС‚РѕС‡РЅРёРєРѕРј СЃРІРµС‚Р° - С‚Рѕ РѕР±СЊРµРєС‚ РІСЃС‘ СЂР°РІРЅРѕ РЅРµ РІ С‚РµРЅРё
 			if(tempT>lightLen)
 				isShadow = false;
 
@@ -263,12 +263,12 @@ Color Raytracer::calcCrossColor(XYZ ray, XYZ source, int iterNum, double currRef
 			double normToRayLen = calcVectorLen(normToRay);
 
 			if(!isShadow){
-				//Высчитываем множитель полутени = cos угла между нормалью и лучом до источника света
-				//Высчитываем по теореме косинусов 
+				//Р’С‹СЃС‡РёС‚С‹РІР°РµРј РјРЅРѕР¶РёС‚РµР»СЊ РїРѕР»СѓС‚РµРЅРё = cos СѓРіР»Р° РјРµР¶РґСѓ РЅРѕСЂРјР°Р»СЊСЋ Рё Р»СѓС‡РѕРј РґРѕ РёСЃС‚РѕС‡РЅРёРєР° СЃРІРµС‚Р°
+				//Р’С‹СЃС‡РёС‚С‹РІР°РµРј РїРѕ С‚РµРѕСЂРµРјРµ РєРѕСЃРёРЅСѓСЃРѕРІ 
 				double lightScaler = pow((2 - sqr(normToRayLen))/2, p->getMetalizing());
 				if(lightScaler<0) lightScaler = 0; 
 
-				//Высчитываем интенсивность света
+				//Р’С‹СЃС‡РёС‚С‹РІР°РµРј РёРЅС‚РµРЅСЃРёРІРЅРѕСЃС‚СЊ СЃРІРµС‚Р°
 //				if (refractive)
 //				{
 //					result.r+=unsigned short((double((1-p->getTransparency())*(double)p->getColor().r)/1.0)*(double(m_lights[i].col.r)/255.0f)*lightScaler);
