@@ -1,6 +1,6 @@
 #include"Raytracer.h"
 
-#define ANTIALIAS_AM 2
+#define ANTIALIAS_AM 1
 
 Raytracer::Raytracer(XYZ eyePos, XYZ planePos, XYZ planeOX, XYZ planeOY,
 					 double planeSizeX, double planeSizeY, int resolutionX, int resolutionY)
