@@ -1,15 +1,9 @@
-#include<iostream>
-#include<fstream>
-#include<time.h>
-#include"Raytracer.h"
-#include"libbmp/EasyBMP.h"
+#include <iostream>
+#include <fstream>
+#include <time.h>
+#include "libbmp/EasyBMP.h"
+#include "Raytracer.h"
 #include "Constructor.h"
-
-void wait()
-{
-	std::cin.sync();
-	std::cin.get();
-}
 
 int main()
 {
@@ -197,7 +191,7 @@ int main()
 			percentsDone = int(double(i*planeResY + j)/double(planeResX*planeResY) * 100);
 			if(percentsDone != percentsLast){
 				percentsLast = percentsDone;
-				std::cout<<"\r"<<percentsDone<<"% done. It took " << double(clock())/CLOCKS_PER_SEC/*tim*/ << " seconds.                  ";
+				std::cout<<"\r"<<percentsDone<<"\% done. It took " << double(clock())/CLOCKS_PER_SEC/*tim*/ << " seconds.                  ";
 			}
 		}
 	}
@@ -207,5 +201,4 @@ int main()
 
 	std::cout<<"\rRaytracing done! "<< "It took " << float(clock())/CLOCKS_PER_SEC << " seconds. " << "Press enter to continue.\n";
 
-	wait();
 }
