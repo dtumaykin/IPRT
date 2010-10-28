@@ -2,7 +2,8 @@
 #define _UTIL_
 #include"structures.h"
 #include<cmath>
-	
+
+//Usefull functions	
 XYZ normalizeVector(XYZ a);
 
 double calcVectorLen(XYZ a);

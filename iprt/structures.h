@@ -1,20 +1,20 @@
 #ifndef _STRUCTURES_
 #define _STRUCTURES_
 
-//Цвет
+//Char between 0 and 255
 struct Color
 {
 	unsigned short r, g, b;
 };
 
-//Позиция в трёхмерном пространстве
+//Point in the virtual space
 struct XYZ
 {
 	double x, y, z;
 };
 
 
-//Источник света
+//Light - only one type for now - general light -- TODO: pointed light
 struct Light
 {
 	XYZ pos;

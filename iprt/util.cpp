@@ -2,7 +2,7 @@
 
 XYZ normalizeVector(XYZ a)
 {
-	double length = sqrt(a.x*a.x + a.y*a.y + a.z*a.z);
+	double length = calcVectorLen(a);
 	XYZ result;
 	result.x = a.x/length;
 	result.y = a.y/length;

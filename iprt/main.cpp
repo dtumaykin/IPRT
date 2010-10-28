@@ -1,9 +1,9 @@
-#include <iostream>
-#include <fstream>
-#include <time.h>
-#include "libbmp/EasyBMP.h"
-#include "Raytracer.h"
-#include "Constructor.h"
+#include<iostream>
+#include<fstream>
+#include<time.h>
+#include"libbmp/EasyBMP.h"
+#include"Raytracer.h"
+#include"Constructor.h"
 
 int main()
 {
@@ -16,8 +16,7 @@ int main()
 	if(input.fail())
 	{
 		std::cout << "No configuration found";
-		wait();
-		return 0;
+		return 1;
 	}
 
 	//creating enviroment

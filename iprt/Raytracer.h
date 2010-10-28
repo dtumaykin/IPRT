@@ -7,18 +7,17 @@
 #include"Primitives.h"
 #include"util.h"
 
-//Класс, который занимается трассировкой лучей
+//Main class, that do ray tracing
 class Raytracer{
 public:
-	//Конструктор класса. Принимает все то, что написано в презентации интела и записывает в класс то, что нам
-	//надо. Кое какие параметры в будущем можно убрать или измнить... Но это потом.
+	//Class constructor that creates ambient
 	Raytracer(XYZ eyePos, XYZ planePos, XYZ planeOX, XYZ planeOY, double planeSizeX, 
 		double planeSizeY, int resoluionX, int resolutionY);
 
-	//Метод получения цвета заданного пикселя
+	//No need to comment
 	Color getPixelColor(int x, int y);
 
-	//Тут всё очевидно - этими методами добавляем сферу и источник света соответственно
+	//Some methods to set ambient
 	void AddPrimitive(Primitive * s);
 	void AddLight(Light l);
 
@@ -27,28 +26,28 @@ public:
 
 	~Raytracer();
 private:
-	//Вектора хранят все сферы и источники света в сфере
+	//Two <vectors> to hold scene primitives and lights
 	std::vector<Primitive *> m_primitives;
 	std::vector<Light> m_lights;
 
-	//Позиция глаза
+	//Eye position
 	XYZ m_eyePos;
 
-	//Координаты центра экрана, и точки, в которой находится пиксель (0, 0)
+	//Coords of center of screen and of first pixel
 	XYZ m_planeCenter;
 	XYZ m_planeZero;
 
-	//Векторы, параллельные осям OX и OY экрана
+	//Vectors parrallel to axes oX and oY
 	XYZ m_planeOX;
 	XYZ m_planeOY;
 
-	//Размеры экрана
+	//Screen dimensions
 	double m_planeSizeX, m_planeSizeY;
 
-	//Разрешение экрана
+	//Screen resolution
 	int m_resolutionX, m_resolutionY;
 
-	//Размеры пикселя в пространстве
+	//Pixel dimension
 	double m_pixelSizeX, m_pixelSizeY;
 
 	Color m_globalLight;
