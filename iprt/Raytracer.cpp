@@ -1,6 +1,6 @@
 #include"Raytracer.h"
 
-#define ANTIALIAS_AM 1
+#define ANTIALIAS_AM 1 //Antialias level
 
 Raytracer::Raytracer(XYZ eyePos, XYZ planePos, XYZ planeOX, XYZ planeOY,
 					 double planeSizeX, double planeSizeY, int resolutionX, int resolutionY)
@@ -14,7 +14,7 @@ Raytracer::Raytracer(XYZ eyePos, XYZ planePos, XYZ planeOX, XYZ planeOY,
 	m_resolutionX = resolutionX;
 	m_resolutionY = resolutionY;
 	
-	//Вычисление необходимых велечин (см. презентацию интела)
+	//Some necessary calcs
 	m_pixelSizeX = planeSizeX/resolutionX;
 	m_pixelSizeY = planeSizeY/resolutionY;
 	m_planeCenter.x = m_eyePos.x + planePos.x;

@@ -53,12 +53,9 @@ private:
 	Color m_globalLight;
 	Color m_background;
 
-	//Вспомогательный метод, который вычисляет ближайшую точку пересечения луча с одной из сфер.
-	//ray - направлени луча,
-	//source - источнк луча,
-	//s и len - указатели на обьекты, в которые заносятся сфера, с которой произошло пересечение и
-	//длина до пересечения соответственно.
-	//Если пересечение существует метод вернёт true, иначе false
+	//Method calculates the nearest point of cross between ray and primitive
+	//ray - ray direction, source - ray origin, s - ptr to primitive, len - ptr lo the between source and cross with primitive
+	//returns true is there's a cross
 	bool calculateCross(XYZ ray, XYZ source, Primitive ** s, double * len, bool refractive);
 
 	Color calcCrossColor(XYZ ray, XYZ source, int iterNum, double currRefraction, bool refractive);
